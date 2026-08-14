@@ -1,0 +1,98 @@
+\section{QUBO Formulation}
+
+\subsection{One-to-one objective with penalties}
+
+The maximization in Eq.~\eqref{eq:objective} is represented as minimization. For the one-to-one case, the implemented energy is
+\begin{equation}
+Q_{1:1}(x)=
+-\sum_{i,j}S_{ij}x_{ij}
++\lambda_A\sum_i\left(\sum_jx_{ij}-1\right)^2
++\lambda_R\sum_j\sum_{i<k}x_{ij}x_{kj}.
+\label{eq:qubo_one_to_one}
+\end{equation}
+The first penalty enforces exactly one assignment in each agent row. The second penalizes resource collisions. In square instances, the combination yields permutation matrices at the feasible minimum.
+
+\subsection{Exact-capacity QUBO}
+
+For a capacity vector $\bm C$, the resource-side penalty becomes
+\begin{equation}
+Q_C(x)=
+-\sum_{i,j}S_{ij}x_{ij}
++\lambda_A\sum_i\left(\sum_jx_{ij}-1\right)^2
++\lambda_R\sum_j\left(\sum_ix_{ij}-C_j\right)^2.
+\label{eq:qubo_capacity}
+\end{equation}
+This exact squared penalty is the minimal generalization requested in the depth supplement \cite{depthsupplement}.
+
+\subsection{Penalty scale and coefficient expansion}
+
+The student-developed deterministic scale is retained:
+\begin{equation}
+\lambda_A=\lambda_R=nmS_{\max},
+\qquad
+S_{\max}=\max_{i,j}|S_{ij}|.
+\label{eq:penalty_scale}
+\end{equation}
+For the three instances this gives Table~\ref{tab:penalties}.
+
+\begin{table}[H]
+\centering
+\caption{Penalty weights and constant offsets.}
+\label{tab:penalties}
+\begin{tabular}{lrrrr}
+\toprule
+Instance & $N=nm$ & $\lambda_A$ & $\lambda_R$ & Constant offset\\
+\midrule
+$3\times3$ one-to-one & 9 & 8.55 & 8.55 & 25.65\\
+$4\times4$ one-to-one & 16 & 14.72 & 14.72 & 58.88\\
+$4\times2$, $\bm C=(2,2)$ & 8 & 7.20 & 7.20 & 86.40\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Writing a generic upper-triangular \QUBO{} as
+\begin{equation}
+Q(x)=c+\sum_qa_qx_q+\sum_{q<r}b_{qr}x_qx_r,
+\label{eq:generic_qubo}
+\end{equation}
+the exact-capacity expansion yields
+\begin{align}
+c&=n\lambda_A+\lambda_R\sum_jC_j^2,\\
+a_{ij}&=-S_{ij}-\lambda_A+\lambda_R(1-2C_j),\\
+b_{(i,j),(i,\ell)}&=2\lambda_A,\qquad j<\ell,\\
+b_{(i,j),(k,j)}&=2\lambda_R,\qquad i<k.
+\end{align}
+The coefficients are produced programmatically; no manually typed \QUBO{} matrix is used in the quantum stage.
+
+\subsection{QUBO-to-Ising mapping}
+
+Each binary variable is mapped to a Pauli-$Z$ operator through
+\begin{equation}
+x_q=\frac{1-Z_q}{2},
+\qquad
+x_qx_r=\frac{I-Z_q-Z_r+Z_qZ_r}{4}.
+\label{eq:binary_ising_map}
+\end{equation}
+Thus,
+\begin{equation}
+H_Q=\alpha I+\sum_qh_qZ_q+\sum_{q<r}J_{qr}Z_qZ_r,
+\label{eq:ising_hamiltonian}
+\end{equation}
+where
+\begin{align}
+\alpha&=c+\frac12\sum_qa_q+\frac14\sum_{q<r}b_{qr},\\
+h_q&=-\frac12a_q-\frac14\sum_{r\neq q}b_{qr},\\
+J_{qr}&=\frac14b_{qr}.
+\end{align}
+The notebook constructs the operator with explicit sparse Pauli terms and verifies basis-state equivalence between $Q(x)$ and $\bra{x}H_Q\ket{x}$. The validation is exhaustive for all 512 states of the $3\times3$ instance and all 256 states of the $4\times2$ instance; the $4\times4$ case is checked on deterministic reference states, optimum assignments, and control samples.
+
+\subsection{Logical interaction topology}
+
+The quadratic row and column couplings produce a dense rook-graph structure over the one-hot variables. Figure~\ref{fig:logical_topology} shows the logical graphs for the two square instances. This density is relevant because the IBM hardware coupling graph is sparse; routing therefore introduces SWAP-equivalent overhead even when the logical qubit count remains modest.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{logical_qubo_topology.png}
+\caption{Logical \QUBO{} interaction topology retained from the executed notebook. Row and column cliques create dense couplings before hardware mapping.}
+\label{fig:logical_topology}
+\end{figure}

@@ -1,0 +1,176 @@
+\documentclass[11pt,a4paper]{article}
+
+% -----------------------------------------------------------------------------
+% Core typography and layout
+% -----------------------------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{geometry}
+\geometry{top=2.15cm,bottom=2.2cm,left=2.25cm,right=2.25cm}
+\usepackage{setspace}
+\setstretch{1.04}
+
+% -----------------------------------------------------------------------------
+% Mathematics, tables, figures, code
+% -----------------------------------------------------------------------------
+\usepackage{amsmath,amssymb,mathtools,bm}
+\usepackage{booktabs,longtable,tabularx,array,multirow,makecell}
+\usepackage[table]{xcolor}
+\usepackage{graphicx}
+\graphicspath{{Figures/}}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{pdflscape}
+\usepackage{siunitx}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{url}
+\usepackage{hyperref}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!42!black,
+  citecolor=blue!42!black,
+  urlcolor=blue!55!black,
+  pdftitle={Standard and Grover-Mixer QAOA for Generalized Bipartite Assignment},
+  pdfauthor={QI26-20 QIntern Research Team}
+}
+
+\sisetup{
+  detect-all,
+  group-separator={\,},
+  group-minimum-digits=4,
+  output-decimal-marker={.}
+}
+
+\setlength{\emergencystretch}{3em}
+\renewcommand{\arraystretch}{1.14}
+\setlist[itemize]{leftmargin=1.45em}
+\setlist[enumerate]{leftmargin=1.65em}
+
+\definecolor{StdBlue}{HTML}{2F6B9A}
+\definecolor{GMRed}{HTML}{A34848}
+\definecolor{IdealGreen}{HTML}{3D7A57}
+\definecolor{LightGray}{HTML}{F3F5F7}
+\definecolor{AuditMet}{HTML}{E5F3E9}
+\definecolor{AuditPartial}{HTML}{FFF2CC}
+\definecolor{AuditNo}{HTML}{FCE4E4}
+
+\lstdefinestyle{pythonstyle}{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{StdBlue}\bfseries,
+  commentstyle=\color{IdealGreen},
+  stringstyle=\color{GMRed},
+  showstringspaces=false,
+  frame=single,
+  rulecolor=\color{black!25},
+  backgroundcolor=\color{LightGray},
+  breaklines=true,
+  columns=fullflexible
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{QI26-20 QUBO--QAOA benchmark}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.35pt}
+\setlength{\headheight}{14pt}
+
+% -----------------------------------------------------------------------------
+% Reusable notation
+% -----------------------------------------------------------------------------
+\newcommand{\QAOA}{\textsc{QAOA}}
+\newcommand{\GMQAOA}{\textsc{GM-QAOA}}
+\newcommand{\QUBO}{\textsc{QUBO}}
+\newcommand{\NISQ}{\textsc{NISQ}}
+\newcommand{\TVD}{\operatorname{TVD}}
+\newcommand{\Fcl}{F_{\mathrm{cl}}}
+\newcommand{\PF}{P_{\mathrm{F}}}
+\newcommand{\Popt}{P_{\mathrm{opt}}}
+\newcommand{\absGap}{\Delta_{\mathrm{abs}}}
+\newcommand{\relGap}{\Delta_{\mathrm{rel}}}
+\newcommand{\ket}[1]{\lvert #1\rangle}
+\newcommand{\bra}[1]{\langle #1\rvert}
+\newcommand{\braket}[2]{\langle #1\vert #2\rangle}
+
+% -----------------------------------------------------------------------------
+% Title and authorship
+% -----------------------------------------------------------------------------
+\title{\textbf{Standard and Grover-Mixer QAOA for Generalized Bipartite Assignment}\\[0.35em]
+\large A Reproducible QUBO Benchmark on IBM Quantum Hardware}
+
+\author{
+Iván Barrientos Salas\thanks{Corresponding author and QI26-20 mentor.} \and
+Jiya Maurya \and
+Qyngshuq \and
+Abhishek Raj \and
+Satkar Juneja \and
+MarcosJ \and
+Ilia Fazeli\\[0.5em]
+\small QI26-20 / QIntern 2026 Research Team
+}
+
+\date{August 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This work presents a reproducible benchmark of standard Quantum Approximate Optimization Algorithm (\QAOA{}) and Grover-Mixer QAOA (\GMQAOA{}) for generalized bipartite assignment. The benchmark preserves the original student-developed five-track workflow and extends it to three fixed instances: a $3\times3$ one-to-one assignment, a reproducible $4\times4$ one-to-one assignment, and a $4\times2$ exact-capacity assignment with $\bm C=(2,2)$. Standard \QAOA{} is evaluated in ideal statevector simulation for depths $p\in\{1,2,3\}$, whereas \GMQAOA{} is evaluated at $p=1$ using exact small-instance feasible-state preparations. The two $p=1$ circuits for the capacitated instance are then transpiled with the same preset pass manager and executed in one IBM Quantum Runtime job on \texttt{ibm\_marrakesh}, using 1024 shots per circuit, dynamical decoupling, and gate twirling.
+
+Both hardware distributions contained the classical optimum of score $3.25$, yielding zero best-sample optimization gap. However, distribution quality differed sharply from that conclusion alone. Standard \QAOA{} produced an observed feasible probability of $7.7148\%$ and an optimal-state probability of $1.5625\%$, compared with ideal values of $9.1582\%$ and $2.3380\%$. \GMQAOA{} produced $11.9141\%$ feasible mass and $2.8320\%$ optimal-state probability, compared with ideal values of $100\%$ and $50.3666\%$. The corresponding total variation distances were approximately $0.2082$ for standard \QAOA{} and $0.8809$ for \GMQAOA{}. Transpilation generated depth 143 and 63 native CZ gates for standard \QAOA{}, versus depth 1357 and 496 CZ gates for \GMQAOA{}. Thus, the implemented Grover mixer satisfies the ideal feasible-subspace construction of Bärtschi and Eidenbenz for the fixed instances, but its hardware realization incurs substantial routing and synthesis overhead. The study establishes a transparent small-instance benchmark; it does not establish quantum advantage or a general scalable state-preparation method.
+\end{abstract}
+
+\noindent\textbf{Keywords:} QAOA; GM-QAOA; QUBO; generalized bipartite assignment; exact capacities; IBM Quantum; transpilation; NISQ noise.
+
+\clearpage
+\tableofcontents
+\listoffigures
+\listoftables
+\clearpage
+
+\input{Sections/01_introduction}
+\input{Sections/02_problem_definition}
+\input{Sections/03_qubo_formulation}
+\input{Sections/04_classical_baselines}
+\input{Sections/05_qaoa_gm_qaoa}
+\input{Sections/06_experimental_setup}
+\input{Sections/07_results}
+\input{Sections/08_error_analysis}
+\input{Sections/09_discussion_limitations}
+\input{Sections/10_conclusion_future_work}
+
+\section*{Author Contributions}
+\addcontentsline{toc}{section}{Author Contributions}
+The contribution statement follows the ownership recorded in the notebook. Jiya Maurya led the mathematical formulation and \QUBO{} derivation, with support from Satkar Juneja and Ilia Fazeli. Qyngshuq and Abhishek Raj led synthetic-data generation and constraint validation, with support from Jiya Maurya and Satkar Juneja. Satkar Juneja led the classical baselines and evaluation metrics, with support from Jiya Maurya and MarcosJ. MarcosJ led the Qiskit/\QAOA{} simulator implementation, with support from Ilia Fazeli, Qyngshuq, Abhishek Raj, and Satkar Juneja. Ilia Fazeli led documentation and experiment tracking, with support from MarcosJ and Jiya Maurya. Iván Barrientos Salas provided conceptualization, supervision, scientific auditing, integration of generalized capacities and \GMQAOA{}, hardware methodology, validation, and manuscript preparation. All authors should confirm the final CRediT taxonomy and author order before journal submission.
+
+\section*{Data and Code Availability}
+\addcontentsline{toc}{section}{Data and Code Availability}
+The reproducible artifact is organized as the repository \texttt{QI26-20-QUBO-QAOA-Benchmark}. It contains the executed notebook, dependency specification, exported result tables, scientific-claims checklist, and compliance matrix. The archived IBM Quantum job identifier is \texttt{d9vl8qfo3ppc73akfak0}. The public repository URL should be inserted when the repository is released. The full distribution table reconstructed from the archived Runtime result is included with the manuscript source under \texttt{Data/full\_hardware\_distributions.csv}.
+
+\section*{Acknowledgments}
+\addcontentsline{toc}{section}{Acknowledgments}
+This work was developed in the QI26-20 / QIntern 2026 research context. The authors acknowledge the use of Qiskit and IBM Quantum services. Access to the quantum processing unit does not imply endorsement of the conclusions by IBM.
+
+\section*{Funding and Conflicts of Interest}
+\addcontentsline{toc}{section}{Funding and Conflicts of Interest}
+Funding and conflict-of-interest declarations were not specified in the repository artifacts and must be confirmed by all authors before external submission.
+
+\clearpage
+\appendix
+\input{Appendices/appendix_a_compliance}
+\input{Appendices/appendix_b_circuits}
+\input{Appendices/appendix_c_distributions}
+\input{Appendices/appendix_d_reproducibility}
+
+\clearpage
+\bibliographystyle{unsrt}
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,37 @@
+\section{Introduction and Motivation}
+
+Combinatorial assignment is a recurring primitive in logistics, scheduling, enterprise resource allocation, and matching systems. A typical instance links a set of agents to a set of resources through an affinity or utility matrix, while enforcing exclusivity or capacity constraints. Even when each local score is easy to evaluate, the number of globally admissible assignments grows combinatorially. The QI26-20 project therefore frames generalized bipartite assignment as a Quadratic Unconstrained Binary Optimization (\QUBO{}) problem and benchmarks quantum variational optimization against exact and heuristic classical methods \cite{qi2620}.
+
+Current quantum processors operate in the noisy intermediate-scale quantum (\NISQ{}) regime. For such hardware, an algorithm cannot be evaluated only by whether an optimal bitstring appears at least once. The probability mass assigned to feasible states, the concentration on optimal assignments, circuit depth, two-qubit-gate count, and the discrepancy between ideal and physical distributions are all necessary to interpret a result. This is especially important for constrained optimization, where standard \QAOA{} explores the full computational basis while penalty terms energetically discourage infeasible states.
+
+The Quantum Alternating Operator Ansatz introduced a broader framework for constrained optimization in which the initial state and mixer can be adapted to the feasible subspace \cite{hadfield2019}. Bärtschi and Eidenbenz proposed \GMQAOA{}, which prepares an equal superposition of all feasible solutions and uses a Grover-like selective phase-shift mixer \cite{baertschi2020}. In ideal evolution, this construction remains entirely within the feasible subspace and assigns equal amplitudes to feasible solutions having equal objective values. Its central trade-off is equally important: mixer design becomes simple only when the feasible-state preparation unitary $U_S$ is efficient.
+
+The present study extends the original $3\times3$ QI26-20 benchmark with two controlled instances requested by the depth supplement: a $4\times4$ one-to-one problem and a $4\times2$ exact-capacity problem with $\bm C=(2,2)$. The standard-\QAOA{} analysis is restricted to the requested depths $p\in\{1,2,3\}$ and uses one deterministic optimization per configuration. The hardware comparison uses the compact $4\times2$ instance and $p=1$ for both standard \QAOA{} and \GMQAOA{}.
+
+\subsection{Research questions}
+
+The benchmark addresses the following questions:
+\begin{enumerate}
+  \item How do feasible and optimal-solution probabilities vary with standard-\QAOA{} depth $p\in\{1,2,3\}$ across one-to-one and exact-capacity instances?
+  \item Does the implemented \GMQAOA{} circuit reproduce the theoretical feasible-subspace evolution in ideal simulation?
+  \item How far do the measured IBM Quantum distributions deviate from their ideal references?
+  \item What physical overhead is introduced by mapping standard \QAOA{} and the Grover-mixer construction to the same backend?
+  \item Which requirements of QI26-20 and Bärtschi--Eidenbenz are supported by the artifact, and which claims remain outside its scope?
+\end{enumerate}
+
+\subsection{Contributions}
+
+The main contributions are:
+\begin{itemize}
+  \item a programmatic \QUBO{} model supporting both one-to-one assignments and exact capacity vectors $\bm C$;
+  \item a reproducible comparison of three fixed instances and four classical baselines;
+  \item a deterministic ideal standard-\QAOA{} depth study for $p=1,2,3$;
+  \item exact small-instance \GMQAOA{} preparations and circuit-level validation of $U_S$, $U_P$, and $U_M$;
+  \item a controlled IBM Quantum experiment in which both algorithms share the same backend, shots, pass manager, and runtime job;
+  \item full-distribution error metrics, feasible-subspace leakage, statistical intervals, and transpilation-resource analysis;
+  \item an explicit compliance matrix and claims boundary suitable for an open research repository.
+\end{itemize}
+
+\subsection{Scope of the claims}
+
+The work demonstrates a reproducible small-instance implementation. It does not demonstrate asymptotic quantum speedup, practical runtime advantage, or the general $O(n^3)$-gate permutation-state preparation described in the reference paper. Hardware conclusions are tied to one backend, one calibration period, one job, one exact-capacity instance, and $p=1$.

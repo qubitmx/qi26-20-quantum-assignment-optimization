@@ -1,0 +1,21 @@
+\section{Conclusion and Future Work}
+
+This study delivers a traceable \QUBO--\QAOA{} benchmark for generalized bipartite assignment. The formulation supports one-to-one assignment and fixed exact capacities, and its \QUBO-to-Ising mapping is numerically validated. Four classical baselines, a standard-\QAOA{} depth sweep, ideal \GMQAOA{}, backend-specific transpilation, and a real IBM Quantum comparison are integrated in one repository artifact.
+
+The ideal standard-\QAOA{} study shows that the effect of depth is not monotonic across instances. The exact-capacity $4\times2$ case benefits consistently through $p=3$, while the $4\times4$ case is best at $p=2$ under the tested settings. Ideal \GMQAOA{} preserves the feasible subspace and yields zero best-score gap for all three fixed instances.
+
+On \texttt{ibm\_marrakesh}, both $p=1$ algorithms sampled the exact optimum. Nevertheless, standard \QAOA{} retained a distribution much closer to its ideal reference than \GMQAOA{}. The Grover-mixer circuit incurred depth 1357 and 496 CZ gates, versus depth 143 and 63 CZ gates for standard \QAOA{}. Its feasible mass fell from $100\%$ to $11.91\%$, and its optimal probability from $50.37\%$ to $2.83\%$. The primary scientific conclusion is therefore not that \GMQAOA{} fails as an ideal ansatz, but that the specific fixed feasible-state preparation and selective-phase implementation are too costly to preserve their ideal advantage on this hardware execution.
+
+Future work should:
+\begin{enumerate}
+  \item export complete ideal and measured distributions directly with every run;
+  \item repeat matched jobs across time and backends, with uncertainty over calibrations;
+  \item evaluate hardware $p=2,3$ only after resource preflight;
+  \item replace generic or controlled state preparations with structured $W$/Dicke, bitmask, swap, and ancilla-reuse constructions;
+  \item compare alternative multi-controlled-phase syntheses and layouts;
+  \item perform ablations for readout mitigation, dynamical decoupling, twirling, and postselection;
+  \item construct a controlled family of instance sizes and capacity vectors;
+  \item report total resource cost jointly with solution quality and classical baselines.
+\end{enumerate}
+
+Within its stated scope, the artifact satisfies the intended Phase-1 objective: it converts a student-developed assignment benchmark into a reproducible research workflow with explicit theoretical alignment, real-hardware evidence, error analysis, and clearly bounded claims.

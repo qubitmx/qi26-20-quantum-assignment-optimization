@@ -1,0 +1,3 @@
+algorithm,instance_id,p,backend,optimization_level,logical_qubits,backend_qubits,depth_before,depth_after,size_before,size_after,two_qubit_gates_before,two_qubit_gates_after,cx_count,ecr_count,cz_count,operation_counts,transpile_runtime_s
+standard_qaoa,exact_capacity_4x2,1,ibm_marrakesh,3,8,156,10,143,48,293,16,63,0,0,63,"{'sx': 124, 'rz': 97, 'cz': 63, 'measure': 8, ...",0.023831
+gm_qaoa,exact_capacity_4x2,1,ibm_marrakesh,3,8,156,11,1357,60,2180,12,496,0,0,496,"{'sx': 1038, 'rz': 626, 'cz': 496, 'x': 12, 'm...",0.132162

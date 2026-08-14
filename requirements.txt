@@ -1,0 +1,8 @@
+qiskit[visualization]~=2.5.1
+qiskit-aer~=0.17.2
+qiskit-ibm-runtime~=0.48.0
+numpy>=2.0,<3
+pandas>=2.0,<3
+scipy>=1.14,<2
+matplotlib>=3.8,<4
+networkx>=3.2,<4

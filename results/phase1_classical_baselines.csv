@@ -1,0 +1,12 @@
+instance_id,n_agents,n_resources,constraint_mode,capacities,solver,score,feasible,optimality_gap,runtime_s
+reference_3x3,3,3,one_to_one,"[1, 1, 1]",exact_bruteforce,2.7,True,0.0,0.000466
+reference_3x3,3,3,one_to_one,"[1, 1, 1]",hungarian,2.7,True,0.0,0.000203
+reference_3x3,3,3,one_to_one,"[1, 1, 1]",greedy,2.7,True,0.0,0.003466
+reference_3x3,3,3,one_to_one,"[1, 1, 1]",simulated_annealing,2.7,True,0.0,1.90988
+one_to_one_4x4,4,4,one_to_one,"[1, 1, 1, 1]",exact_bruteforce,3.08,True,0.0,0.003566
+one_to_one_4x4,4,4,one_to_one,"[1, 1, 1, 1]",hungarian,3.08,True,0.0,0.000151
+one_to_one_4x4,4,4,one_to_one,"[1, 1, 1, 1]",greedy,2.8,True,0.28,0.000417
+one_to_one_4x4,4,4,one_to_one,"[1, 1, 1, 1]",simulated_annealing,3.01,True,0.07,2.707101
+exact_capacity_4x2,4,2,exact_capacity,"[2, 2]",exact_bruteforce,3.25,True,0.0,0.000305
+exact_capacity_4x2,4,2,exact_capacity,"[2, 2]",greedy,3.25,True,0.0,0.000309
+exact_capacity_4x2,4,2,exact_capacity,"[2, 2]",simulated_annealing,3.25,True,0.0,1.106859

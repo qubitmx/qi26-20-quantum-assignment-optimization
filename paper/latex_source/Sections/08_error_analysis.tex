@@ -1,0 +1,111 @@
+\section{Error Analysis and Noise Characterization}
+
+\subsection{Ideal versus hardware distributions}
+
+Figure~\ref{fig:ideal_hardware_hist} is the wide histogram generated in the executed notebook. It compares a 1024-shot ideal reference with the measured \texttt{ibm\_marrakesh} counts on the same selected support. The standard distribution is moderately distorted. The \GMQAOA{} distribution exhibits a much larger collapse of the dominant ideal peaks and substantial population of states having zero ideal probability.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.99\textwidth]{ideal_vs_ibm_marrakesh_histograms.png}
+\caption{Ideal finite-shot reference versus IBM Quantum hardware for standard \QAOA{} and \GMQAOA{}. The bottom panel makes the collapse of the ideal \GMQAOA{} peaks visible.}
+\label{fig:ideal_hardware_hist}
+\end{figure}
+
+\subsection{Feasible and optimal probabilities}
+
+Table~\ref{tab:probability_degradation} compares exact ideal values with complete hardware counts. The standard ideal values and its global distribution metrics are reconstructed within the six-decimal precision of the repository exports, as explained in Section~6.
+
+\begin{table}[H]
+\centering
+\caption{Ideal-to-hardware probability degradation.}
+\label{tab:probability_degradation}
+\small
+\begin{tabular}{lrrrrrr}
+\toprule
+Algorithm & Ideal $\PF$ & QPU $\PF$ & Ideal $\Popt$ & QPU $\Popt$ & $\Delta\Popt$ & Relative $\Popt$ error\\
+\midrule
+Standard \QAOA{} & 0.091582 & 0.077148 & 0.023380 & 0.015625 & $-0.007755$ & $-33.17\%$\\
+\GMQAOA{} & 1.000000 & 0.119141 & 0.503666 & 0.028320 & $-0.475346$ & $-94.38\%$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth]{ideal_hardware_quality_comparison.png}
+\caption{Ideal and physical feasible/optimal probabilities for the hardware instance.}
+\label{fig:quality_comparison}
+\end{figure}
+
+The 95\% Wilson intervals are
+\begin{align}
+P_{\mathrm{F,QPU}}^{\mathrm{std}}&\in[0.06234,0.09512],&
+P_{\mathrm{opt,QPU}}^{\mathrm{std}}&\in[0.00964,0.02523],\\
+P_{\mathrm{F,QPU}}^{\mathrm{GM}}&\in[0.10071,0.14042],&
+P_{\mathrm{opt,QPU}}^{\mathrm{GM}}&\in[0.01979,0.04038].
+\end{align}
+The standard ideal optimum probability lies inside its physical interval, whereas the \GMQAOA{} ideal optimum probability is far outside the physical interval.
+
+\subsection{Global distribution metrics}
+
+\begin{table}[H]
+\centering
+\caption{Distribution-level errors. Standard values marked $\dagger$ are reconstructed within the precision of the exported ideal probabilities.}
+\label{tab:distribution_metrics}
+\begin{tabular}{lrrrr}
+\toprule
+Algorithm & TVD & Hellinger & $\Fcl$ & $1-\TVD$\\
+\midrule
+Standard \QAOA{}$^\dagger$ & 0.2082 & 0.2346 & 0.8929 & 0.7918\\
+\GMQAOA{} & 0.8809 & 0.8284 & 0.0984 & 0.1191\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.76\textwidth]{distribution_error_metrics.png}
+\caption{Distribution-level distance and infidelity measures derived from the complete archived counts.}
+\label{fig:error_metrics}
+\end{figure}
+
+For \GMQAOA{}, the ideal distribution has support only on $\mathcal F$. All six measured feasible probabilities remain below their ideal values, so the TVD equals the measured leakage:
+\begin{equation}
+\TVD_{\mathrm{GM}}=1-P_{\mathrm{F,QPU}}^{\mathrm{GM}}=0.880859375.
+\end{equation}
+This equality provides a direct interpretation of the error: $88.09\%$ of measured probability has leaked outside the ideal support.
+
+\subsection{Energy distortion}
+
+The expected penalized energies change as follows:
+\begin{table}[H]
+\centering
+\caption{Ideal and observed expected \QUBO{} energies.}
+\label{tab:energy_distortion}
+\begin{tabular}{lrrr}
+\toprule
+Algorithm & Ideal $\langle Q\rangle$ & QPU $\langle Q\rangle$ & Difference\\
+\midrule
+Standard \QAOA{}$^\dagger$ & 18.3443 & 19.6276 & $+1.2833$\\
+\GMQAOA{} & $-2.8453$ & 20.2492 & $+23.0945$\\
+\bottomrule
+\end{tabular}
+\end{table}
+The \GMQAOA{} expected energy loses the advantage implied by its ideal feasible-state concentration, even though one optimal sample remains visible.
+
+\subsection{Noise mechanisms and evidence}
+
+The experiment does not isolate a single microscopic error channel. The observed distortion is consistent with the combined effects of:
+\begin{itemize}
+  \item synthesis of controlled state preparations and the multi-controlled phase;
+  \item routing on a sparse coupling graph;
+  \item accumulated CZ and single-qubit gate error;
+  \item decoherence during a substantially longer schedule;
+  \item measurement error;
+  \item calibration drift and stochastic variation across twirling realizations.
+\end{itemize}
+Dynamical decoupling and gate twirling were enabled, so the results already include those suppression techniques. Their presence does not constitute a no-mitigation control experiment. The resource contrast strongly supports circuit length as a major explanatory factor, but it does not prove that depth alone caused the observed difference.
+
+\subsection{Best-sample error versus statistical reliability}
+
+Both algorithms have zero best-sample optimization gap because the optimum appeared at least once. This statement is compatible with low reliability: the optimal state occurred only 16 times for standard \QAOA{} and 29 times for \GMQAOA{} out of 1024 shots. A publication claim should therefore report the gap jointly with $\Popt$, confidence intervals, $\PF$, and global distances.

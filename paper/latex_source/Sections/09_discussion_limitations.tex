@@ -1,0 +1,43 @@
+\section{Discussion and Limitations}
+
+\subsection{Depth is instance- and metric-dependent}
+
+The ideal standard-\QAOA{} sweep does not support a universal claim that larger $p$ improves performance. For the $4\times2$ instance, $p=3$ is best under expected energy, feasible probability, and optimal probability. For $3\times3$, $p=2$ has the lowest expected energy while $p=3$ has higher feasible and optimal probabilities. For $4\times4$, the tested $p=3$ run is worse than $p=2$ and fails to recover the optimum. Optimization budget, initialization, and landscape structure interact with depth.
+
+\subsection{GM-QAOA shifts rather than removes complexity}
+
+In ideal simulation, \GMQAOA{} offers a clean separation between feasibility and optimization. Penalty terms are unnecessary inside $\mathcal F$, feasible probability is exactly one, and the optimum receives substantially more probability than under standard \QAOA{} at $p=1$. The hardware result shows the trade-off emphasized by Bärtschi and Eidenbenz: the approach is useful only when $U_S$ and its inverse can be compiled efficiently \cite{baertschi2020}.
+
+For the compact $4\times2$ case, the physical Grover-mixer circuit is nearly ten times deeper and contains nearly eight times as many native two-qubit gates as the standard circuit. Its ideal $50.37\%$ optimum probability collapses to $2.83\%$. Thus, feasible-subspace design at the logical level is not sufficient; state-preparation architecture and device-aware synthesis determine whether the theoretical benefit survives.
+
+\subsection{Alignment with QI26-20}
+
+The artifact fulfills the central implementation path of QI26-20: synthetic assignment data, one-to-one and one-to-$N$ constraints, \QUBO{} formulation, classical baselines, ideal \QAOA{}, real IBM Quantum execution, and analysis of depth and noise-related overhead \cite{qi2620}. It also preserves the depth supplement's restricted $p=1,2,3$ experiment \cite{depthsupplement}. A complete six-week research program would additionally require a systematic size family, broader tuning, and repeated physical experiments.
+
+\subsection{Alignment with Bärtschi and Eidenbenz}
+
+The notebook implements the operational equations
+\begin{equation}
+U_S\ket{0}=\ket{F},\qquad
+U_P(\gamma)=e^{-i\gamma H_C},\qquad
+U_M(\beta)=U_SD_0(\beta)U_S^\dagger
+\end{equation}
+and verifies ideal feasible-subspace preservation. It does not implement the paper's general permutation generator or demonstrate its asymptotic complexity. The absence of Hamiltonian-simulation error in the logical mixer must not be confused with absence of physical noise.
+
+\subsection{Threats to validity}
+
+The main limitations are:
+\begin{enumerate}
+  \item \textbf{Small fixed instances.} Eight, nine, and sixteen logical qubits do not establish scaling behavior.
+  \item \textbf{Single deterministic optimization.} No optimizer-seed variance or parameter-sensitivity distribution is measured.
+  \item \textbf{One physical job.} The study cannot estimate temporal drift or between-job variance.
+  \item \textbf{One backend.} Results are not portable to other topologies or calibration regimes without new transpilation and execution.
+  \item \textbf{Hardware depth restricted to $p=1$.} The ideal $p=2,3$ conclusions are not physical results.
+  \item \textbf{Fixed feasible-state preparations.} They are exact demonstrations, not a general scalable library.
+  \item \textbf{No ablation study.} Dynamical decoupling and twirling are enabled, but there are no matched controls without these options.
+  \item \textbf{Standard global metric reconstruction.} Standard ideal-to-hardware distances use a distribution reconstructed within the six-decimal precision of repository exports; the complete ideal vector should be exported directly in future releases.
+\end{enumerate}
+
+\subsection{No quantum-advantage claim}
+
+Exact and Hungarian solvers obtain the optimum orders of magnitude faster than the quantum workflow at these sizes. The reported contribution is a reproducible formulation and hardware-error benchmark. Neither runtime advantage nor solution-quality advantage over appropriate classical algorithms is demonstrated.

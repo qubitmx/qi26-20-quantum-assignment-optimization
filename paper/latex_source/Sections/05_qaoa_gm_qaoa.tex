@@ -1,0 +1,72 @@
+\section{QAOA and GM-QAOA Implementation}
+
+\subsection{Standard QAOA}
+
+Standard \QAOA{} follows the alternating-operator construction introduced by Farhi, Goldstone, and Gutmann \cite{farhi2014} and begins in the uniform superposition
+\begin{equation}
+\ket{+}^{\otimes N}=H^{\otimes N}\ket{0}^{\otimes N}
+\end{equation}
+and alternates the penalized cost Hamiltonian $H_Q$ with the transverse-field mixer
+\begin{equation}
+H_M=\sum_{q=0}^{N-1}X_q.
+\end{equation}
+At depth $p$, the variational state is
+\begin{equation}
+\ket{\bm\gamma,\bm\beta}=
+\prod_{\ell=1}^{p}
+  e^{-i\beta_\ell H_M}
+  e^{-i\gamma_\ell H_Q}
+\ket{+}^{\otimes N}.
+\label{eq:standard_qaoa_state}
+\end{equation}
+The outer loop minimizes $\langle H_Q\rangle$ with COBYLA. The depth study uses one deterministic initialization and one optimization for each instance--depth pair, rather than a grid search or multi-seed campaign.
+
+\subsection{Grover-Mixer QAOA}
+
+Let $\mathcal F$ be the feasible set. \GMQAOA{} assumes a unitary $U_S$ satisfying
+\begin{equation}
+U_S\ket{0}^{\otimes N}=\ket{F}
+=\frac{1}{\sqrt{|\mathcal F|}}
+\sum_{x\in\mathcal F}\ket{x}.
+\label{eq:feasible_superposition}
+\end{equation}
+The phase separator is diagonal:
+\begin{equation}
+U_P(\gamma)=e^{-i\gamma H_C}.
+\label{eq:gm_phase_separator}
+\end{equation}
+Inside $\mathcal F$, every constraint penalty is zero, so the implemented $H_C$ contains only the assignment objective,
+\begin{equation}
+H_C=-\sum_{i,j}S_{ij}x_{ij}.
+\end{equation}
+The Grover-like mixer is
+\begin{align}
+U_M(\beta)
+&=e^{-i\beta\ket{F}\!\bra{F}}\\
+&=U_S\left[I-\left(1-e^{-i\beta}\right)
+\ket{0}\!\bra{0}\right]U_S^\dagger.
+\label{eq:grover_mixer}
+\end{align}
+Consequently, a $p$-round state has the form
+\begin{equation}
+\ket{\bm\beta,\bm\gamma}=
+U_M(\beta_p)U_P(\gamma_p)\cdots
+U_M(\beta_1)U_P(\gamma_1)U_S\ket{0}^{\otimes N}.
+\end{equation}
+The theoretical construction remains inside $\mathcal F$, and equal-quality feasible solutions receive equal amplitudes \cite{baertschi2020}.
+
+\subsection{Fixed feasible-state preparations}
+
+The Phase-1 implementation constructs exact preparations for three instances:
+\begin{itemize}
+  \item the uniform superposition of six $3\times3$ permutation matrices;
+  \item the uniform superposition of 24 $4\times4$ permutation matrices;
+  \item the uniform superposition of six $4\times2$ assignments with two agents per resource.
+\end{itemize}
+The $4\times2$ preparation creates a weight-two state over the four variables associated with resource 0 and computes the complementary resource-1 variables. Circuit and statevector fidelity are verified against the direct feasible-subspace calculation.
+
+\subsection{Physical realization of the Grover mixer}
+
+For each round, the circuit applies local objective phases, $U_S^\dagger$, $X$ gates on every problem qubit, a multi-controlled phase gate, the inverse $X$ layer, and $U_S$. This directly implements Eq.~\eqref{eq:grover_mixer}; it avoids Trotterization error in the logical mixer. It does not eliminate hardware errors, and the cost of decomposing $U_S$, $U_S^\dagger$, and the multi-controlled phase can be large.
+
+Bärtschi and Eidenbenz give an explicit general permutation preparation with $O(n^3)$ gates and depth $O(n^2)$ on linear-nearest-neighbor architectures \cite{baertschi2020}. The present fixed preparations are exact small-instance constructions, not an implementation of that asymptotic generator. This distinction is maintained throughout the results and compliance analysis.

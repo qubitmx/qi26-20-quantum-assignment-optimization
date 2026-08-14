@@ -1,0 +1,151 @@
+\section{Results}
+
+\subsection{Classical baseline results}
+
+Table~\ref{tab:classical_results} reports all classical runs. Exact enumeration and the Hungarian algorithm recover the optimum whenever applicable. Greedy and simulated annealing expose a nontrivial $4\times4$ case: greedy stops at score 2.80, and simulated annealing at 3.01, versus the exact value 3.08.
+
+\begin{table}[H]
+\centering
+\caption{Classical baseline results exported by the repository.}
+\label{tab:classical_results}
+\small
+\begin{tabular}{llrrr}
+\toprule
+Instance & Solver & Score & Gap & Runtime (s)\\
+\midrule
+$3\times3$ & Exact & 2.70 & 0.00 & 0.000466\\
+ & Hungarian & 2.70 & 0.00 & 0.000203\\
+ & Greedy & 2.70 & 0.00 & 0.003466\\
+ & Simulated annealing & 2.70 & 0.00 & 1.909880\\
+\midrule
+$4\times4$ & Exact & 3.08 & 0.00 & 0.003566\\
+ & Hungarian & 3.08 & 0.00 & 0.000151\\
+ & Greedy & 2.80 & 0.28 & 0.000417\\
+ & Simulated annealing & 3.01 & 0.07 & 2.707101\\
+\midrule
+$4\times2$, $\bm C=(2,2)$ & Exact & 3.25 & 0.00 & 0.000305\\
+ & Greedy & 3.25 & 0.00 & 0.000309\\
+ & Simulated annealing & 3.25 & 0.00 & 1.106859\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+These runtimes make clear that the quantum experiment is a correctness and \NISQ{} implementation benchmark, not a runtime competition against classical optimization at this problem size.
+
+\subsection{Standard-QAOA depth comparison}
+
+The ideal depth results are given in Table~\ref{tab:standard_depth}. Bar height in Figure~\ref{fig:depth_comparison} represents feasible probability, while labels report optimal probability.
+
+\begin{table}[H]
+\centering
+\caption{Ideal standard-\QAOA{} depth sweep.}
+\label{tab:standard_depth}
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrrrrrrr}
+\toprule
+Instance & $p$ & $\langle Q\rangle$ & $\PF$ (\%) & $\Popt$ (\%) & Best score & Gap & Logical depth & Runtime (s)\\
+\midrule
+$3\times3$ & 1 & 39.226215 & 0.3583 & 0.0740 & 2.70 & 0.00 & 21 & 1.676498\\
+ & 2 & 15.257437 & 8.9024 & 2.1687 & 2.70 & 0.00 & 41 & 1.119079\\
+ & 3 & 21.386914 & 11.8618 & 4.1527 & 2.70 & 0.00 & 61 & 1.650187\\
+\midrule
+$4\times4$ & 1 & 42.062530 & 0.2523 & 0.0029 & 2.80 & 0.28 & 33 & 12.776456\\
+ & 2 & 83.253245 & 3.9986 & 0.1629 & 3.08 & 0.00 & 59 & 15.722948\\
+ & 3 & 87.475826 & 0.0978 & 0.0092 & 2.80 & 0.28 & 85 & 16.660130\\
+\midrule
+$4\times2$ & 1 & 18.344321 & 9.1582 & 2.3380 & 3.25 & 0.00 & 21 & 0.297405\\
+ & 2 & 8.953983 & 34.8893 & 5.4127 & 3.25 & 0.00 & 38 & 0.358492\\
+ & 3 & 7.934315 & 43.9911 & 6.1093 & 3.25 & 0.00 & 55 & 0.452604\\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth]{standard_qaoa_depth_comparison.png}
+\caption{Ideal standard-\QAOA{} comparison for $p=1,2,3$. Bar heights show feasible probability and annotations show optimal-solution probability.}
+\label{fig:depth_comparison}
+\end{figure}
+
+The capacitated $4\times2$ instance shows monotonic gains in $\langle Q\rangle$, $\PF$, and $\Popt$. The $3\times3$ instance increases $\PF$ and $\Popt$ through $p=3$, although its best expected energy occurs at $p=2$. The $4\times4$ instance is non-monotonic: $p=2$ is the only tested depth that samples the optimum, while $p=3$ returns to gap 0.28 and greatly reduces feasible mass. More layers therefore do not guarantee a better optimized state under a fixed optimizer budget.
+
+Figure~\ref{fig:energy_histories} shows the optimization histories for the original $3\times3$ instance.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{reference_qaoa_depth_energy_histories.png}
+\caption{Expected-\QUBO-energy histories for the reference $3\times3$ standard-\QAOA{} runs.}
+\label{fig:energy_histories}
+\end{figure}
+
+\subsection{Ideal GM-QAOA results}
+
+Table~\ref{tab:gm_ideal} confirms exact feasible-subspace evolution. State-preparation and full-circuit fidelities are numerically one. All three runs achieve zero best-score gap.
+
+\begin{table}[H]
+\centering
+\caption{Ideal $p=1$ \GMQAOA{} results.}
+\label{tab:gm_ideal}
+\scriptsize
+\begin{tabular}{lrrrrrrrr}
+\toprule
+Instance & $\PF$ & $\Popt$ & Best score & Gap & $F(U_S)$ & Circuit fidelity & Depth & Runtime (s)\\
+\midrule
+$3\times3$ & 1.000000 & 0.692281 & 2.70 & 0.00 & 1.000000 & 1.000000 & 1062 & 0.068595\\
+$4\times4$ & 1.000000 & 0.107441 & 3.08 & 0.00 & 1.000000 & 1.000000 & 20252 & 0.059578\\
+$4\times2$ & 1.000000 & 0.503666 & 3.25 & 0.00 & 1.000000 & 1.000000 & 395 & 0.086711\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The ideal probability advantage of \GMQAOA{} is pronounced on the fixed cases, but the decomposed depths reveal the state-preparation cost. In particular, the $4\times4$ fixed construction has depth 20252 before any hardware routing experiment and was therefore not selected for QPU execution.
+
+\subsection{IBM Quantum results}
+
+The hardware experiment includes only the $4\times2$ instance and $p=1$. Table~\ref{tab:hardware_quality} distinguishes best-sample quality from distribution concentration.
+
+\begin{table}[H]
+\centering
+\caption{Hardware quality for the exact-capacity $4\times2$ instance.}
+\label{tab:hardware_quality}
+\small
+\begin{tabular}{lrrrrrr}
+\toprule
+Algorithm & Shots & Minimum $Q$ & Best score & Gap & $\PF$ & $\Popt$\\
+\midrule
+Standard \QAOA{} & 1024 & $-3.25$ & 3.25 & 0.00 & 0.077148 & 0.015625\\
+\GMQAOA{} & 1024 & $-3.25$ & 3.25 & 0.00 & 0.119141 & 0.028320\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Both distributions contain \texttt{10011001}, the exact optimum. The most frequently observed standard-\QAOA{} state is instead infeasible \texttt{10101101} with 23 counts. In \GMQAOA{}, the optimal state is the modal output with 29 counts, but the remaining probability is distributed broadly and mostly outside the feasible set.
+
+\subsection{Transpilation and resource overhead}
+
+\begin{table}[H]
+\centering
+\caption{Logical and transpiled resource counts on \texttt{ibm\_marrakesh}.}
+\label{tab:transpilation}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrrrr}
+\toprule
+Algorithm & Depth before & Depth after & Size before & Size after & 2Q before & 2Q after & CZ & Transpile (s)\\
+\midrule
+Standard \QAOA{} & 10 & 143 & 48 & 293 & 16 & 63 & 63 & 0.023831\\
+\GMQAOA{} & 11 & 1357 & 60 & 2180 & 12 & 496 & 496 & 0.132162\\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+Relative to standard \QAOA{}, the physical \GMQAOA{} circuit has $9.49\times$ the depth, $7.44\times$ the number of instructions, and $7.87\times$ the native two-qubit gates. Relative to its own abstract circuit, \GMQAOA{} experiences $123.36\times$ depth inflation, compared with $14.3\times$ for standard \QAOA{}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth]{hardware_resource_overhead.png}
+\caption{Transpiled resource overhead for the two circuits executed in the same Runtime job.}
+\label{fig:resource_overhead}
+\end{figure}

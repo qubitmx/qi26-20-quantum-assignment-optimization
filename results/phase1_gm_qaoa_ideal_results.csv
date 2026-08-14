@@ -1,0 +1,4 @@
+instance_id,n_agents,n_resources,constraint_mode,capacities,p,feasible_probability,optimal_probability,best_score,classical_score,score_gap,initial_state_fidelity,circuit_fidelity,ideal_circuit_depth,runtime_s,betas,gammas
+reference_3x3,3,3,one_to_one,"[1, 1, 1]",1,1.0,0.692281,2.7,2.7,0.0,1.0,1.0,1062,0.068595,[4.122864834208651],[1.7176720969733803]
+one_to_one_4x4,4,4,one_to_one,"[1, 1, 1, 1]",1,1.0,0.107441,3.08,3.08,0.0,1.0,1.0,20252,0.059578,[1.3448072899011083],[-1.5697552330239946]
+exact_capacity_4x2,4,2,exact_capacity,"[2, 2]",1,1.0,0.503666,3.25,3.25,0.0,1.0,1.0,395,0.086711,[-1.5708566117079497],[1.3534404619399159]

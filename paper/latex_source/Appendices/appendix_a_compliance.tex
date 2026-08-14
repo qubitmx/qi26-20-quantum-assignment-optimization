@@ -1,0 +1,32 @@
+\section{Compliance Matrix}
+\label{app:compliance}
+
+\begin{landscape}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{p{0.14\linewidth}p{0.28\linewidth}p{0.14\linewidth}p{0.38\linewidth}}
+\caption{Formal compliance with QI26-20, the depth supplement, and Bärtschi--Eidenbenz.}\\
+\toprule
+Reference & Requirement & Status & Evidence and reservation\\
+\midrule
+\endfirsthead
+\toprule
+Reference & Requirement & Status & Evidence and reservation\\
+\midrule
+\endhead
+Depth supplement & Preserve original $3\times3$, $p=1$ experiment & \cellcolor{AuditMet}\textbf{Met} & The reference run remains explicit and uses the original initialization and analysis aliases.\\
+Depth supplement & Add $4\times4$ one-to-one instance & \cellcolor{AuditMet}\textbf{Met} & Reproducible seed-2026 affinity matrix and exact one-to-one constraints.\\
+Depth supplement & Add $4\times2$ capacities $[2,2]$ & \cellcolor{AuditMet}\textbf{Met} & Exact squared capacity penalty and direct feasibility validation.\\
+Depth supplement & Standard-\QAOA{} sweep $p=1,2,3$ & \cellcolor{AuditMet}\textbf{Met ideally} & Nine deterministic statevector experiments; no additional depth grid.\\
+QI26-20 & Classical baselines and same-instance comparison & \cellcolor{AuditMet}\textbf{Met} & Exact, Hungarian, greedy, and simulated annealing use the same matrices and score definitions.\\
+QI26-20 & Real hardware execution & \cellcolor{AuditMet}\textbf{Met for fixed case} & Standard \QAOA{} and \GMQAOA{} executed on \texttt{ibm\_marrakesh}, job \texttt{d9vl8qfo3ppc73akfak0}.\\
+QI26-20 & Depth, noise, and resource analysis & \cellcolor{AuditPartial}\textbf{Partial} & Ideal depth sweep and $p=1$ QPU resource/error analysis are present; no QPU $p=2,3$ campaign.\\
+QI26-20 & Scaling over increasing graph sizes & \cellcolor{AuditPartial}\textbf{Partial} & Three sizes are represented, but no systematic scaling regression or broad family.\\
+Bärtschi--Eidenbenz & Equal feasible-state superposition & \cellcolor{AuditMet}\textbf{Met for fixed cases} & State-preparation fidelity equals one in ideal simulation.\\
+Bärtschi--Eidenbenz & Parameterized Grover mixer & \cellcolor{AuditMet}\textbf{Met operationally} & $U_SD_0(\beta)U_S^\dagger$ is implemented with a selective phase.\\
+Bärtschi--Eidenbenz & Ideal feasible-subspace preservation & \cellcolor{AuditMet}\textbf{Met ideally} & $\PF=1$ and full-circuit state fidelity equals one for all fixed cases.\\
+Bärtschi--Eidenbenz & General $O(n^3)$ permutation preparation & \cellcolor{AuditNo}\textbf{Not implemented} & Phase 1 uses exact fixed-size constructions and makes no general asymptotic claim.\\
+Scientific claim & Quantum advantage & \cellcolor{AuditNo}\textbf{Not established} & Classical exact and Hungarian methods dominate these small instances; one hardware job is insufficient.\\
+\bottomrule
+\end{longtable}
+\end{landscape}

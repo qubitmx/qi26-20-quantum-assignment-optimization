@@ -1,0 +1,67 @@
+\section{Reproducibility Metadata and Claims Boundary}
+\label{app:reproducibility}
+
+\subsection{Repository artifact}
+
+The source repository contains:
+\begin{verbatim}
+QI26-20-QUBO-QAOA-Benchmark/
+|-- README.md
+|-- requirements.txt
+|-- QI26_20_QUBO_QAOA_GM_QAOA_Benchmark.ipynb
+|-- results/
+`-- paper/
+\end{verbatim}
+The manuscript PDF is intended for the repository path
+\begin{verbatim}
+paper/QI26_20_preprint.pdf
+\end{verbatim}
+
+\subsection{Core run parameters}
+
+\begin{table}[H]
+\centering
+\caption{Core reproducibility parameters.}
+\begin{tabular}{ll}
+\toprule
+Parameter & Value\\
+\midrule
+Data / transpiler / simulator seed & 2026\\
+Standard depths & $p\in\{1,2,3\}$ ideal; $p=1$ hardware\\
+GM depth & $p=1$\\
+Optimizer & COBYLA\\
+Ideal candidate shots & 4096\\
+Hardware shots & 1024 per circuit\\
+Hardware instance & $4\times2$, exact capacities $[2,2]$\\
+Backend & \texttt{ibm\_marrakesh}\\
+Optimization level & 3\\
+Dynamical decoupling & XpXm\\
+Gate twirling & Enabled\\
+Job ID & \texttt{d9vl8qfo3ppc73akfak0}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Supported and unsupported statements}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+\toprule
+Supported by the artifact & Not supported by the artifact\\
+\midrule
+One-to-one and fixed exact-capacity \QUBO{} models are implemented and validated. & The implementation supports arbitrary dynamic capacities without extension.\\
+Standard \QAOA{} is compared at $p=1,2,3$ in ideal simulation. & Standard \QAOA{} was run on hardware at all three depths.\\
+The fixed \GMQAOA{} circuits preserve the feasible subspace ideally. & The QPU preserves the \GMQAOA{} feasible subspace.\\
+Both physical circuits sampled the exact optimum. & Either algorithm finds the optimum with high probability.\\
+The operational Grover mixer matches the equations in Bärtschi--Eidenbenz. & The general $O(n^3)$ state-preparation construction is reproduced.\\
+The recorded \GMQAOA{} circuit has substantially higher depth and CZ count. & The same ratio holds for all devices and instances.\\
+No quantum advantage is established. & The data establish or refute quantum advantage in general.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Credential hygiene}
+
+No IBM Quantum credential is required to inspect or reproduce the archived analysis. Any future execution should obtain the token from a Colab secret or environment variable and must not commit the token to the repository.

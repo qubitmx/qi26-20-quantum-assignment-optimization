@@ -1,0 +1,30 @@
+\section{Classical Baselines}
+
+The benchmark uses classical solvers on the same matrices and constraints as the quantum workflows. Every solver returns an assignment matrix, score, feasibility flag, runtime, and gap relative to the exact optimum.
+
+\subsection{Exact enumeration}
+
+For the fixed small instances, exact enumeration provides the reference optimum. One-to-one assignments are enumerated as injections or permutations. Exact-capacity assignments are enumerated over resource labels and retained only when their histogram equals $\bm C$. This method is exponential in general but unambiguous for the present validation sizes.
+
+\subsection{Hungarian algorithm}
+
+The Hungarian algorithm solves the square one-to-one linear assignment problem in polynomial time \cite{kuhn1955}. Because the benchmark maximizes affinity, the implementation converts the score matrix to the corresponding minimization form. It is not applied directly to the $4\times2$ exact-capacity representation.
+
+\subsection{Greedy heuristic}
+
+The greedy solver selects high-affinity pairs while respecting the active resource constraints. It is computationally inexpensive but locally myopic; its failure on the $4\times4$ instance is useful as a non-optimal reference.
+
+\subsection{Simulated annealing}
+
+Simulated annealing uses stochastic local updates and an acceptance schedule to explore the assignment space \cite{kirkpatrick1983}. The notebook fixes seed 2026 and evaluates feasibility using the same validation functions as the exact and quantum candidates.
+
+\subsection{Evaluation quantities}
+
+For maximization, the absolute and relative gaps are
+\begin{equation}
+\absGap=f^\star-f_{\mathrm{best}},
+\qquad
+\relGap=\frac{f^\star-f_{\mathrm{best}}}{|f^\star|}.
+\label{eq:gaps}
+\end{equation}
+A gap of zero indicates that the best returned feasible assignment equals the exact score. It does not by itself describe sampling concentration or expected energy.

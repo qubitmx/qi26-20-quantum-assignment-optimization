@@ -1,0 +1,109 @@
+{
+  "reconstructed_standard_parameters": {
+    "beta": 1.835273265264151,
+    "gamma": 1.2267103703019107,
+    "fit_cost": 3.5640725498248864,
+    "expected_qubo_energy": 18.34432212619258,
+    "feasible_probability": 0.09158208427195862,
+    "optimal_probability": 0.023379697511692804,
+    "note": "Reconstructed from repository probabilities rounded to six decimals; global metrics are stable within that rounding precision."
+  },
+  "gm_parameters": {
+    "beta": -1.5708566117079497,
+    "gamma": 1.3534404619399159
+  },
+  "metrics": {
+    "standard_qaoa": {
+      "algorithm": "standard_qaoa",
+      "shots": 1024,
+      "ideal_feasible_probability": 0.09158208427195862,
+      "observed_feasible_probability": 0.0771484375,
+      "feasible_subspace_leakage": 0.9228515625,
+      "ideal_optimal_probability": 0.023379697511692804,
+      "observed_optimal_probability": 0.015625,
+      "optimal_probability_absolute_error": -0.007754697511692804,
+      "optimal_probability_relative_error": -0.3316851087493529,
+      "total_variation_distance": 0.2082413603866945,
+      "hellinger_distance": 0.2346237273104278,
+      "distribution_fidelity": 0.8929337277740523,
+      "one_minus_tvd": 0.7917586396133055,
+      "ideal_expected_qubo_energy": 18.34432212619258,
+      "observed_expected_qubo_energy": 19.627587890625,
+      "ideal_expected_score": 2.7870542881787665,
+      "observed_expected_score": 2.7317871093750004,
+      "feasible_successes": 79,
+      "optimal_successes": 16,
+      "best_observed_bitstring": "10101101",
+      "best_observed_count": 23,
+      "feasible_probability_ci95": [
+        0.062340154398843044,
+        0.09511745487718754
+      ],
+      "optimal_probability_ci95": [
+        0.00964032654076094,
+        0.025230283623006194
+      ]
+    },
+    "gm_qaoa": {
+      "algorithm": "gm_qaoa",
+      "shots": 1024,
+      "ideal_feasible_probability": 1.0000000000000002,
+      "observed_feasible_probability": 0.119140625,
+      "feasible_subspace_leakage": 0.880859375,
+      "ideal_optimal_probability": 0.5036664095779589,
+      "observed_optimal_probability": 0.0283203125,
+      "optimal_probability_absolute_error": -0.47534609707795894,
+      "optimal_probability_relative_error": -0.9437716870503025,
+      "total_variation_distance": 0.8808593750000001,
+      "hellinger_distance": 0.828445677551451,
+      "distribution_fidelity": 0.09839373670852612,
+      "one_minus_tvd": 0.11914062499999989,
+      "ideal_expected_qubo_energy": -2.8453190282292904,
+      "observed_expected_qubo_energy": 20.24921875,
+      "ideal_expected_score": 2.8453190282292904,
+      "observed_expected_score": 2.37734375,
+      "feasible_successes": 122,
+      "optimal_successes": 29,
+      "best_observed_bitstring": "10011001",
+      "best_observed_count": 29,
+      "feasible_probability_ci95": [
+        0.10070826395026218,
+        0.14041983678334508
+      ],
+      "optimal_probability_ci95": [
+        0.019789746477255746,
+        0.040376593662057814
+      ]
+    }
+  },
+  "job": {
+    "backend": "ibm_marrakesh",
+    "job_id": "d9vl8qfo3ppc73akfak0",
+    "created_utc": "2026-08-14T17:46:17.684431Z",
+    "estimated_running_time_seconds": 5.075874943,
+    "cost_reported": 120,
+    "execution_span_start": "2026-08-14T17:46:24.585790",
+    "execution_span_stop": "2026-08-14T17:46:28.986544",
+    "execution_span_seconds": 4.400754,
+    "dynamical_decoupling": {
+      "sequence_type": "XpXm",
+      "enable": true
+    },
+    "twirling": {
+      "enable_gates": true,
+      "num_randomizations": "auto",
+      "shots_per_randomization": "auto"
+    },
+    "randomizations_per_circuit": 16,
+    "shots_per_randomization": 64
+  },
+  "resource_ratios": {
+    "gm_to_standard_depth": 9.48951048951049,
+    "gm_to_standard_size": 7.440273037542662,
+    "gm_to_standard_two_qubit_gates": 7.873015873015873,
+    "standard_depth_inflation": 14.3,
+    "gm_depth_inflation": 123.36363636363636,
+    "standard_two_qubit_inflation": 3.9375,
+    "gm_two_qubit_inflation": 41.333333333333336
+  }
+}
