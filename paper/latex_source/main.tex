@@ -11,6 +11,7 @@
 \usepackage{geometry}
 \geometry{top=2.15cm,bottom=2.2cm,left=2.25cm,right=2.25cm}
 \usepackage{setspace}
+\usepackage{authblk}
 \setstretch{1.04}
 
 % -----------------------------------------------------------------------------
@@ -25,7 +26,11 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{pdflscape}
-\usepackage{siunitx}
+\IfFileExists{siunitx.sty}{
+  \usepackage{siunitx}
+}{
+  \newcommand{\SI}[2]{\ensuremath{##1\,\mathrm{##2}}}
+}
 \usepackage{enumitem}
 \usepackage{listings}
 \usepackage{fancyhdr}
@@ -41,12 +46,14 @@
   pdfauthor={QI26-20 QIntern Research Team}
 }
 
-\sisetup{
-  detect-all,
-  group-separator={\,},
-  group-minimum-digits=4,
-  output-decimal-marker={.}
-}
+\IfFileExists{siunitx.sty}{
+  \sisetup{
+    detect-all,
+    group-separator={\,},
+    group-minimum-digits=4,
+    output-decimal-marker={.}
+  }
+}{}
 
 \setlength{\emergencystretch}{3em}
 \renewcommand{\arraystretch}{1.14}
@@ -105,15 +112,23 @@
 \title{\textbf{Standard and Grover-Mixer QAOA for Generalized Bipartite Assignment}\\[0.35em]
 \large A Reproducible QUBO Benchmark on IBM Quantum Hardware}
 
-\author{
-Iván Barrientos Salas\thanks{Corresponding author and QI26-20 mentor.} \and
-Ilia Fazeli \and
-Jiya Maurya \and
-Marcos Jiménez \and
-Abhishek Raj \and
-Satkar Juneja\\[0.5em]
-\small QI26-20 / QIntern 2026 Research Team
-}
+\renewcommand{\Authfont}{\normalsize}
+\renewcommand{\Affilfont}{\small\itshape}
+\setlength{\affilsep}{0.45em}
+
+\author[1]{Iván Barrientos Salas\thanks{Corresponding author and QI26-20 mentor.}}
+\author[2]{Ilia Fazeli}
+\author[3]{Jiya Maurya}
+\author[4]{Marcos Jiménez}
+\author[5]{Abhishek Raj}
+\author[6]{Satkar Juneja}
+
+\affil[1]{Faculty of Sciences, National Autonomous University of Mexico (UNAM), Mexico City, Mexico}
+\affil[2]{Amsterdam University of Applied Sciences, Amsterdam, The Netherlands}
+\affil[3]{Madhya Pradesh Medical Science University, Jabalpur, India}
+\affil[4]{University of Costa Rica, San José, Costa Rica}
+\affil[5]{Department of Financial Engineering, WorldQuant University, Washington, D.C., USA}
+\affil[6]{International Institute of Information Technology Hyderabad, Hyderabad, India}
 
 \date{August 2026}
 

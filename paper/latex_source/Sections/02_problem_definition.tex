@@ -19,6 +19,7 @@ is defined for every $(i,j)\in\mathcal A\times\mathcal R$. Given an affinity mat
 \max_x f(x)=\sum_{i=0}^{n-1}\sum_{j=0}^{m-1}S_{ij}x_{ij}.
 \label{eq:objective}
 \end{equation}
+This binary representation provides the basis for the penalty-based \QUBO{} and Ising encoding developed in Section~3, following the standard methodology for mapping discrete optimization problems to Ising Hamiltonians \cite{lucas2014}.
 
 Every supported instance enforces exactly one resource per agent:
 \begin{equation}

@@ -23,7 +23,7 @@ The outer loop minimizes $\langle H_Q\rangle$ with COBYLA. The depth study uses 
 
 \subsection{Grover-Mixer QAOA}
 
-Let $\mathcal F$ be the feasible set. \GMQAOA{} assumes a unitary $U_S$ satisfying
+Following the Grover-mixer construction of Bärtschi and Eidenbenz \cite{baertschi2020}, let $\mathcal F$ be the feasible set. \GMQAOA{} assumes a unitary $U_S$ satisfying
 \begin{equation}
 U_S\ket{0}^{\otimes N}=\ket{F}
 =\frac{1}{\sqrt{|\mathcal F|}}
@@ -53,7 +53,7 @@ Consequently, a $p$-round state has the form
 U_M(\beta_p)U_P(\gamma_p)\cdots
 U_M(\beta_1)U_P(\gamma_1)U_S\ket{0}^{\otimes N}.
 \end{equation}
-The theoretical construction remains inside $\mathcal F$, and equal-quality feasible solutions receive equal amplitudes \cite{baertschi2020}.
+The theoretical construction remains inside $\mathcal F$, and equal-quality feasible solutions receive equal amplitudes.
 
 \subsection{Fixed feasible-state preparations}
 
