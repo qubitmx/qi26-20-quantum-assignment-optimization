@@ -204,8 +204,8 @@
     "gm_qaoa_transpiled_folded_full.png",
     "reference_qaoa_p1_optimization_history.png"
   ],
-  "pdf_sha256": "c31fe2cacb40130d7f89f54243cabb6e81baaa0dfce53c1c3c4197ca8a299a27",
-  "arxiv_zip_sha256": "4f14665020a4c60a48f303c4c9f85ff93e972e5190105a22f933fdc961976cc0",
+  "pdf_sha256": "ed2c6e728f5c256a5e525de494986ad15d54a87cd65a180f394ca3b92aba2fc7",
+  "arxiv_zip_sha256": "9153df59f9463bc3dfa5ea0806eb8a7c8560e02941bf73eae07b694c3aa88341",
   "main_bbl_sha256": "485a0ab8eb7631a973903a983cabbc0e63e85e47eceefcd7f1e7eda22b19e3da",
   "manifest": {
     "Appendices/appendix_a_compliance.tex": "9838692f1cad6a52ceeb5e969f4d7aa0a39274d8b4942e2e8e8736bc500f8806",
@@ -241,80 +241,40 @@
     "anc/Data/standard_qaoa_top20.csv": "8e0175f6628beb5c949021eef3be64205d79bb1bd10d90dabac2a2f4fd9b01a0",
     "anc/LICENSES/Apache-2.0.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
     "anc/LICENSES/CC-BY-4.0.txt": "419896aea50c15d6e40c5b4baf4bd346f78223b9a354c7357ad00262afdc08ec",
-    "anc/LICENSES/NOTICE.txt": "15654389b8a02a145dfdd05d340c2b3543b2aaf4a40eeb5551d5d2a21e6005be",
+    "anc/LICENSES/NOTICE.txt": "67cc9c258e27a7a45176aed1bdee909901ab91f1cef082dce99c2946c1ecc2c5",
     "anc/LICENSING.txt": "73aaf8de5c88da4cbca5749155d3bb47438f0c4208150b5a1133df843adf4870",
     "anc/README.txt": "cbb37e3e938db201bf77da432f74cbf26256b5bb87833f99dbbad36e6400a995",
     "main.bbl": "485a0ab8eb7631a973903a983cabbc0e63e85e47eceefcd7f1e7eda22b19e3da",
-    "main.tex": "47a470a0e78c011944f4b37fef0c1a4c620580e48c0f740d7829ea4826173e51",
+    "main.tex": "895e13ecaef0eb794f5d8a76978279285c9bc8b61669ad2b84856732455d2daf",
     "references.bib": "fd9c442c25af4ca9f9276caf507777bcaa9520d46365f8e5dcdbf073baabf267"
   },
   "result": "PASS - LOCAL COMPILATION AND SELF-CONTAINED LICENSED ARCHIVE",
-  "release_revision": "2026-09-24-r2",
-  "source_archive_used": "QI26-20_repositorio_corregido.zip",
-  "delivered_arxiv_archive": "QI26-20_arxiv_sources_v2.zip",
-  "delivered_repository_archive": "QI26-20_repositorio_v2.zip",
-  "funding_statement": "This work was carried out as project QI26-20 within QWorld's QIntern 2026 programme, with scientific mentorship and project coordination through Qubit.mx. The support acknowledged here is in-kind academic and organizational support, consisting of the research-training framework, mentorship, and project coordination. The authors received no specific monetary grant for this study.",
-  "scientific_integrity": {
-    "unchanged_file_count": 45,
-    "unchanged_files": [
-      "QI26-20_QIntern2026_QWorld_Style_Presentation.pdf",
-      "paper/latex_source/Appendices/appendix_a_compliance.tex",
-      "paper/latex_source/Appendices/appendix_b_circuits.tex",
-      "paper/latex_source/Appendices/appendix_c_distributions.tex",
-      "paper/latex_source/Appendices/appendix_d_reproducibility.tex",
-      "paper/latex_source/Data/derived_metrics.json",
-      "paper/latex_source/Data/full_hardware_distributions.csv",
-      "paper/latex_source/Data/gm_qaoa_top20.csv",
-      "paper/latex_source/Data/standard_qaoa_top20.csv",
-      "paper/latex_source/Figures/distribution_error_metrics.png",
-      "paper/latex_source/Figures/gm_qaoa_transpiled_folded_full.png",
-      "paper/latex_source/Figures/gm_qaoa_transpiled_folded_part_1.png",
-      "paper/latex_source/Figures/gm_qaoa_transpiled_folded_part_2.png",
-      "paper/latex_source/Figures/gm_qaoa_transpiled_folded_part_3.png",
-      "paper/latex_source/Figures/gm_qaoa_transpiled_folded_part_4.png",
-      "paper/latex_source/Figures/hardware_resource_overhead.png",
-      "paper/latex_source/Figures/ideal_hardware_quality_comparison.png",
-      "paper/latex_source/Figures/ideal_vs_ibm_marrakesh_histograms.png",
-      "paper/latex_source/Figures/logical_qubo_topology.png",
-      "paper/latex_source/Figures/reference_qaoa_depth_energy_histories.png",
-      "paper/latex_source/Figures/reference_qaoa_p1_optimization_history.png",
-      "paper/latex_source/Figures/standard_qaoa_depth_comparison.png",
-      "paper/latex_source/Figures/standard_qaoa_transpiled_folded.png",
-      "paper/latex_source/Figures/transpilation_topology_overhead.png",
-      "paper/latex_source/Sections/01_introduction.tex",
-      "paper/latex_source/Sections/02_problem_definition.tex",
-      "paper/latex_source/Sections/03_qubo_formulation.tex",
-      "paper/latex_source/Sections/04_classical_baselines.tex",
-      "paper/latex_source/Sections/05_qaoa_gm_qaoa.tex",
-      "paper/latex_source/Sections/06_experimental_setup.tex",
-      "paper/latex_source/Sections/07_results.tex",
-      "paper/latex_source/Sections/08_error_analysis.tex",
-      "paper/latex_source/Sections/09_discussion_limitations.tex",
-      "paper/latex_source/Sections/10_conclusion_future_work.tex",
-      "paper/latex_source/references.bib",
-      "requirements.txt",
-      "results/job-d9vl8qfo3ppc73akfak0.zip",
-      "results/phase1_claims_checklist.csv",
-      "results/phase1_classical_baselines.csv",
-      "results/phase1_compliance_matrix.csv",
-      "results/phase1_gm_qaoa_ideal_results.csv",
-      "results/phase1_hardware_summary.csv",
-      "results/phase1_hardware_top_outcomes.csv",
-      "results/phase1_standard_qaoa_depth_results.csv",
-      "results/phase1_transpilation_metrics.csv"
-    ],
-    "notebook_code_cells_unchanged": true,
-    "notebook_outputs_unchanged": true,
-    "notebook_existing_metadata_unchanged": true,
-    "notebook_changes_only": "Appended license notice in first Markdown cell and added licensing metadata",
-    "notebook_and_hardware_executed": false
-  },
+  "verification_date": "2026-11-04",
+  "revision": "Requested authorship and credits update",
   "visual_comparison": {
-    "renderer": "PyMuPDF",
-    "pages_with_render_differences": [
-      23
-    ],
-    "pages_identical_to_previous_pdf": 32,
-    "edited_page_visually_inspected": 23
-  }
+    "presentation": {
+      "pages": 14,
+      "changed_pages": [
+        1
+      ]
+    },
+    "paper": {
+      "pages": 33,
+      "changed_pages": [
+        1,
+        23
+      ]
+    }
+  },
+  "scientific_sources_data_results_unchanged": true,
+  "notebook_code_outputs_and_metadata_unchanged": true,
+  "notebook_markdown_cells_modified": [
+    2,
+    14,
+    34
+  ],
+  "git_history_modified": false,
+  "distributed_arxiv_zip": "QI26-20_arxiv_autoria_actualizada.zip",
+  "distributed_repository_zip": "QI26-20_repositorio_autoria_actualizada.zip",
+  "git_directory_included_in_repository_zip": false
 }

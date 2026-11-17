@@ -18,7 +18,7 @@ All authors reviewed and approved the final manuscript and agreed to its
 submission to arXiv.
 ```
 
-Se conservan el orden de los seis autores, sus afiliaciones y la descripción
+Se conservan el orden de los cinco autores, sus afiliaciones y la descripción
 individual de contribuciones. El archivo principal se llama `main.tex`.
 
 La sección `Funding and Institutional Support` contiene exactamente:
@@ -47,7 +47,7 @@ del proyecto:
 El alcance detallado y las exclusiones para material de terceros están en
 `LICENSING.md`. Los textos legales se distribuyen sin cambios en `LICENSE`
 (Apache 2.0) y `LICENSE-CONTENT` (CC BY 4.0); `NOTICE` conserva la atribución del
-proyecto y de sus seis autores. Los README, el manuscrito y el notebook indican
+proyecto y de sus cinco autores. Los README, el manuscrito y el notebook indican
 la separación entre contenido y código. Los nombres, marcas, derechos y
 licencias de terceros no se sustituyen.
 

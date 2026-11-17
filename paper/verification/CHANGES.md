@@ -1,3 +1,21 @@
+# Actualización de autoría y créditos
+
+Fecha: 4 de noviembre de 2026.
+Base: la carpeta Git entregada por el usuario.
+
+Se actualizan README.md, NOTICE, main.tex, los créditos de tres celdas Markdown
+del notebook y los dos PDF. Se elimina la afiliación sin autor, se renumeran las
+restantes y se cambia de seis a cinco el recuento en la guía administrativa.
+No se reasignan contribuciones de liderazgo a otras personas.
+
+Se regeneran los informes de compilación y las sumas SHA-256 para que correspondan
+a los archivos actuales. main.bbl se regeneró sin diferencias de contenido.
+
+Los archivos científicos, los datos y el código ejecutable se conservan.
+.git se omite del ZIP de entrega y el historial no se modifica.
+
+## Registro previo, conservado como historial
+
 # Cambios de la revisión 2
 
 Base: `QI26-20_repositorio_corregido.zip`. Actualización: 24 de septiembre de 2026.

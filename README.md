@@ -11,7 +11,6 @@ The central objective is not to claim quantum advantage. Instead, the project es
 ## Research Team
 
 - **Iván Barrientos Salas** — Mentor, conceptualization, supervision, scientific auditing, integration of generalized capacities and GM-QAOA, hardware methodology, validation, and manuscript preparation
-- **Ilia Fazeli**
 - **Jiya Maurya**
 - **Marcos Jiménez**
 - **Abhishek Raj**

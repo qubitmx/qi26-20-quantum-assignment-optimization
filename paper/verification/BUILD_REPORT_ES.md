@@ -1,59 +1,45 @@
-# Informe de compilación y empaquetado — revisión 2
+# Verificación de la actualización de autoría y créditos
 
-Fecha: 24 de septiembre de 2026.
-Resultado: **CORRECTO** en las dos pruebas independientes.
+Fecha: 4 de noviembre de 2026.
+Base: el ZIP de la carpeta Git entregado por el usuario.
+Resultado: CORRECTO en las dos compilaciones independientes.
 
-## Pruebas ejecutadas
+## Alcance
 
-Primera: desde los fuentes, pdfLaTeX + BibTeX + pasadas adicionales de pdfLaTeX
-hasta estabilizar referencias e índices. Segunda: desde el ZIP descomprimido
-en otra carpeta, únicamente con pdfLaTeX y el `main.bbl` incluido.
+Se retiró un nombre de la autoría, los créditos, los metadatos y las listas del
+proyecto, por instrucción del autor de correspondencia. Se retiró la afiliación
+que quedó sin autor y se renumeraron las cinco afiliaciones restantes. Se
+ajustaron puntuación y referencias al número de autores. No se atribuyó a otra
+persona el liderazgo retirado; se conservaron los créditos de apoyo de los demás.
 
-Ambas pruebas produjeron 33 páginas y 11 referencias bibliográficas. No hubo
-errores de compilación, referencias indefinidas, glifos ausentes, cajas
-desbordadas ni cajas insuficientemente llenas. El texto de ambos PDF coincide.
-Los pasos y códigos de salida se registran en `BUILD_REPORT.json`.
+No se modificaron resultados, código ejecutable, salidas del notebook, metadatos
+del notebook, datos, ecuaciones, figuras, referencias, licencias ni financiación.
+Los cambios del notebook se limitan a créditos en las celdas Markdown 02, 14 y 34.
 
-Se conserva un aviso no bloqueante de `epstopdf`: `Shell escape feature is not
-enabled.` La ejecución de programas externos se desactivó explícitamente con
-`-no-shell-escape`; las figuras utilizadas son PNG y no requieren conversión EPS.
+## Compilación
 
-Motor: pdfTeX 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian).
-Bibliografía: BibTeX (`bibtex.original`, alternativa local al enlace del sistema).
+Primera prueba: pdfLaTeX, BibTeX y pasadas hasta estabilizar las referencias.
+Segunda prueba: descompresión del nuevo paquete en otra carpeta y compilación
+únicamente con pdfLaTeX y el main.bbl incluido.
 
-## Paquete de fuentes
+Ambas produjeron 33 páginas y 11 referencias, con el mismo texto. No se detectaron
+errores, referencias sin resolver, glifos ausentes ni cajas desbordadas.
+El aviso de epstopdf sobre shell escape desactivado es no bloqueante.
+main.bbl se regeneró y sus bytes son idénticos a los anteriores.
+Los comandos y sus códigos de salida están en BUILD_REPORT.json.
 
-39 archivos, sin carpeta exterior. `main.tex` y `main.bbl` están en la raíz;
-se incluyen `references.bib`, 10 secciones, 4 apéndices, 13 figuras utilizadas,
-4 datos complementarios, 2 textos de licencia, 1 aviso de atribución y 2 avisos
-de material complementario/alcance. El ZIP no contiene el notebook ni el PDF.
-Todos los miembros del ZIP tienen un hash en `BUILD_REPORT.json`.
+## Verificación visual
 
-El nombre exportado es `QI26-20_arxiv_sources_v2.zip`; corresponde a los mismos
-bytes del archivo `QI26-20_arxiv_sources.zip` que generó y comprobó el script.
+Se compararon las 33 páginas del paper: solo cambian las páginas 1 y 23.
+Se compararon las 14 páginas de la presentación: solo cambia la página 1.
+Las páginas modificadas se renderizaron también con Poppler y se inspeccionaron.
+La presentación conserva sus fuentes, imágenes y fondo; el texto se eliminó de
+las instrucciones internas del PDF, sin cubrirlo con un rectángulo.
 
-## Comprobación visual e integridad
+## Paquetes y publicación
 
-Se renderizaron y compararon las 33 páginas con PyMuPDF. Solo la página 23 difiere
-de la versión anterior y fue inspeccionada visualmente: las declaraciones están
-completas y no presentan solapamientos ni recortes. Las otras 32 páginas son
-idénticas en esa comparación de renderizado.
-
-Se comprobaron los bytes de las diez secciones científicas, cuatro apéndices,
-figuras, datos, resultados, referencias, requisitos y presentación: no cambiaron.
-El notebook solo recibió el aviso de licencia y metadatos correspondientes;
-se compararon sus celdas ejecutables, salidas y metadatos previos sin diferencias.
-No se ejecutó nuevamente el notebook ni hardware cuántico.
-
-## Alcance administrativo
-
-El autor de correspondencia informa que recibió las aprobaciones de diseminación
-por correo. La frase final se activó según esa indicación y el párrafo de
-financiación se reemplazó literalmente por el texto que proporcionó. Las
-licencias se incorporaron por su instrucción: contenido original CC BY 4.0 y
-software original Apache 2.0, preservando los derechos de terceros.
-
-Los correos no se inspeccionaron ni se incluyeron en los paquetes. No se fabricó
-ninguna aprobación. No se modificó GitHub ni se depositó el trabajo en arXiv.
-Seleccionar la licencia en arXiv y revisar el PDF de su servidor son operaciones
-separadas de estas pruebas locales.
+El paquete para arXiv contiene 39 archivos y main.tex/main.bbl en la raíz.
+La copia del repositorio conserva los archivos de trabajo y omite .git para no
+sobrescribir el historial ni la configuración de la copia local del usuario.
+No se modificó GitHub, no se realizó un commit y no se depositó nada en arXiv.
+La retirada afecta la versión actual de los archivos, no los commits anteriores.
